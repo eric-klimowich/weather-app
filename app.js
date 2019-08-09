@@ -2,20 +2,20 @@ const request = require('request')
 const geocode = require('./utils/geocode')
 const forecast = require('./utils/forecast')
 
-const location = process.argv[2]
+const address = process.argv[2]
 
-geocode(location, (error, locationData) => {
-    if (location) {
+geocode(address, (error, { longitude, latitude, location}) => {
+    if (address) {
         if (error) {
             return console.log(error)
         }
         
-        forecast(locationData.longitude, locationData.latitude, (error, forecastData) => {
+        forecast(longitude, latitude, (error, forecastData) => {
             if (error) {
                 console.log(error)
             }
             
-            console.log(locationData.location)
+            console.log(location)
             console.log(forecastData)
           })
     } else {
